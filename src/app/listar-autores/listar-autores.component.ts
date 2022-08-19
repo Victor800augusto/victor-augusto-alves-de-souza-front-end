@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-listar-autores',
+  selector: 'listar-autores',
   templateUrl: './listar-autores.component.html',
   styleUrls: ['./listar-autores.component.css']
 })

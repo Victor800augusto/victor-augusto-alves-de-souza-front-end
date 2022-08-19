@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Livro } from '../models/livro';
 import { LivroService } from '../services/livro-service/livro-service.service';
 
 @Component({
-  selector: 'app-listar-livros',
+  selector: 'listar-livros',
   templateUrl: './listar-livros.component.html',
   styleUrls: ['./listar-livros.component.css'],
 })
 export class ListarLivrosComponent implements OnInit {
   livros: Livro[] = [];
 
-  constructor(private livroService: LivroService) {}
+  constructor(private livroService: LivroService, private route: Router) {}
 
   ngOnInit(): void {
     this.livroService.getAll().subscribe({
@@ -23,13 +24,20 @@ export class ListarLivrosComponent implements OnInit {
     });
   }
 
+  irParaCadastroDeLivro() {
+    this.route.navigate(['cria-livro']);
+  }
+
+  irParaAlteracaoDeLivro(livro: Livro) {
+    this.route.navigate(['altera-livro', livro.id]);
+  }
+
   RemoverLivro(livro: Livro) {
     console.log(livro.id);
     this.livroService.removeLivro(livro.id).subscribe({
       next: (success) => {
         console.log(success);
         console.log('livro ' + livro.titulo + 'excluido com sucesso');
-
       },
       error: (error) => {
         console.log(error);

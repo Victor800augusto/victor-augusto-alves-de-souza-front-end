@@ -1,3 +1,4 @@
+import { ListarAutoresComponent } from './listar-autores/listar-autores.component';
 import { FormularioLivroComponent } from './formulario-livro/formulario-livro.component';
 import { ListarLivrosComponent } from './listar-livros/listar-livros.component';
 import { NgModule } from '@angular/core';
@@ -14,11 +15,15 @@ const routes: Routes = [
     component: ListarLivrosComponent,
   },
   {
+    path: 'autores',
+    component: ListarAutoresComponent,
+  },
+  {
     path: 'cria-livro',
     component: FormularioLivroComponent,
   },
   {
-    path: 'altera-livro',
+    path: 'altera-livro/:livroId',
     component: FormularioLivroComponent,
   },
 ];

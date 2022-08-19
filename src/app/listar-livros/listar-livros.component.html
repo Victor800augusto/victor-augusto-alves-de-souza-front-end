@@ -1,16 +1,16 @@
 <div class="container text-center">
   <h3>Lista de livros</h3>
-  <button>Criar</button>
+  <button class="btn btn-dark" (click)="irParaCadastroDeLivro()">Cadastrar livro</button>
   <div *ngIf="livros.length > 0">
     <table>
       <tr>
         <th>Nome</th>
         <th>Ações</th>
       </tr>
-      <tr *ngFor="let livro of livros">
+      <tr  *ngFor="let livro of livros">
         <td>{{ livro.titulo }}</td>
         <td>
-          <button>Alterar</button>
+          <button (click)="irParaAlteracaoDeLivro(livro)">Alterar</button>
           <button (click)="RemoverLivro(livro)">Remover</button>
         </td>
       </tr>
