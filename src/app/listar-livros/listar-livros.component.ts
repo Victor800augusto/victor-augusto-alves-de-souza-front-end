@@ -14,6 +14,10 @@ export class ListarLivrosComponent implements OnInit {
   constructor(private livroService: LivroService, private route: Router) {}
 
   ngOnInit(): void {
+    this.listarLivros();
+  }
+
+  listarLivros() {
     this.livroService.getAll().subscribe({
       next: (success) => {
         this.livros = success;
@@ -36,8 +40,8 @@ export class ListarLivrosComponent implements OnInit {
     console.log(livro.id);
     this.livroService.removeLivro(livro.id).subscribe({
       next: (success) => {
-        console.log(success);
         console.log('livro ' + livro.titulo + 'excluido com sucesso');
+        this.listarLivros()
       },
       error: (error) => {
         console.log(error);
