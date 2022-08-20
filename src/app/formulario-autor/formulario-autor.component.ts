@@ -45,6 +45,29 @@ export class FormularioAutorComponent implements OnInit {
       nome: ['', [Validators.required]],
       biografia: ['', [Validators.required]],
     });
+
+    if (this.edicao) {
+      this.buscaAutorPeloId();
+    }
+  }
+
+  buscaAutorPeloId() {
+    this.autorService
+      .getAutorById(this.activatedRoute.snapshot.params['autorId'])
+      .subscribe({
+        next: (success) => {
+          this.loading = false;
+          this.autorParaEdicao = success as Autor;
+          this.autorForm.get(['nome'])?.setValue(this.autorParaEdicao.nome);
+          this.autorForm
+            .get(['biografia'])
+            ?.setValue(this.autorParaEdicao.biografia);
+        },
+        error: (error) => {
+          alert(error.error.message);
+          this.route.navigate(['autores']);
+        },
+      });
   }
 
   limparESetarTexto(event: any) {
@@ -54,19 +77,38 @@ export class FormularioAutorComponent implements OnInit {
   SalvarAutor() {
     if (this.autorForm.valid) {
       let autor = this.autorForm.getRawValue() as Autor;
-      this.autorService.cadastraAutor(autor).subscribe({
-        next: () => {
-          abreModal('modalFormularioAutores');
-          adicionaEventoSairNaModalComDestino(
-            'modalFormularioAutores',
-            this.route,
-            'autores'
-          );
-        },
-        error: (erro) => {
-          alert(erro.error.message);
-        },
-      });
+
+      if (!this.edicao) {
+        this.autorService.cadastraAutor(autor).subscribe({
+          next: () => {
+            abreModal('modalFormularioAutores');
+            adicionaEventoSairNaModalComDestino(
+              'modalFormularioAutores',
+              this.route,
+              'autores'
+            );
+          },
+          error: (erro) => {
+            alert(erro.error.message);
+          },
+        });
+      } else {
+        this.autorService
+          .atualizaAutor(this.autorParaEdicao.id, autor)
+          .subscribe({
+            next: () => {
+              abreModal('modalFormularioAutores');
+              adicionaEventoSairNaModalComDestino(
+                'modalFormularioAutores',
+                this.route,
+                'autores'
+              );
+            },
+            error: (erro) => {
+              alert(erro.error.message);
+            },
+          });
+      }
     } else {
       this.autorForm.markAllAsTouched();
       alert(
