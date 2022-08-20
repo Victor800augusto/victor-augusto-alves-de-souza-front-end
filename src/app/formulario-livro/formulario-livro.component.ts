@@ -34,8 +34,9 @@ export class FormularioLivroComponent implements OnInit {
   blurLimparZeroAEsquerda: Function = blurLimparZeroAEsquerda;
 
   edicao: Boolean;
+  loading: boolean = true;
 
-  livroParaEdicao!: Observable<Livro>;
+  livroParaEdicao!: Livro;
   livroForm!: FormGroup;
 
   constructor(
@@ -47,9 +48,6 @@ export class FormularioLivroComponent implements OnInit {
     if (window.location.href.includes('cria-livro')) {
       this.edicao = false;
     } else {
-      this.livroParaEdicao = livroService.getLivroById(
-        this.activatedRoute.snapshot.params['livroId']
-      );
       this.edicao = true;
     }
   }
@@ -60,6 +58,38 @@ export class FormularioLivroComponent implements OnInit {
       anoLancamento: ['', [Validators.required, Validators.minLength(4)]],
       autoresIds: ['', [Validators.required]],
     });
+
+    if (this.edicao) {
+      this.buscaLivroPeloId();
+    }
+  }
+
+  buscaLivroPeloId() {
+    this.livroService
+      .getLivroById(this.activatedRoute.snapshot.params['livroId'])
+      .subscribe({
+        next: (success) => {
+          this.loading = false;
+          this.livroParaEdicao = success as Livro;
+          this.livroForm.get(['titulo'])?.setValue(this.livroParaEdicao.titulo);
+          this.livroForm
+            .get(['anoLancamento'])
+            ?.setValue(this.livroParaEdicao.anoLancamento.toString());
+          let stringIdAutores = '';
+          for (let i = 0; i < success.autores.length; i++) {
+            if (success.autores.length == i + 1) {
+              stringIdAutores += success.autores[i].id;
+            } else {
+              stringIdAutores += success.autores[i].id + ',';
+            }
+          }
+          this.livroForm.get(['autoresIds'])?.setValue(stringIdAutores);
+        },
+        error: (error) => {
+          alert(error.error.message);
+          this.route.navigate(['livros']);
+        },
+      });
   }
 
   limparESetarNome(event: any) {
@@ -80,22 +110,37 @@ export class FormularioLivroComponent implements OnInit {
 
   SalvarLivro() {
     if (this.livroForm.valid) {
-      let novoLivro = this.livroForm.getRawValue() as Livro;
-      novoLivro.autoresIds = this.livroForm.get('autoresIds')!.value.split(',');
-      this.livroService.cadastraLivro(novoLivro).subscribe({
-        next: () => {
-          abreModal('modalFormularioLivros');
-          adicionaEventoSairNaModalComDestino(
-            'modalFormularioLivros',
-            this.route,
-            'livros'
-          );
-        },
-        error: (erro) => {
-          console.log(erro);
-          alert(erro.error.message);
-        },
-      });
+      let livro = this.livroForm.getRawValue() as Livro;
+      livro.autoresIds = this.livroForm.get('autoresIds')!.value.split(',');
+      if (!this.edicao) {
+        this.livroService.cadastraLivro(livro).subscribe({
+          next: () => {
+            abreModal('modalFormularioLivros');
+            adicionaEventoSairNaModalComDestino(
+              'modalFormularioLivros',
+              this.route,
+              'livros'
+            );
+          },
+          error: (erro) => {
+            alert(erro.error.message);
+          },
+        });
+      } else {
+        this.livroService.atualizaLivro(this.livroParaEdicao.id, livro).subscribe({
+          next: () => {
+            abreModal('modalFormularioLivros');
+            adicionaEventoSairNaModalComDestino(
+              'modalFormularioLivros',
+              this.route,
+              'livros'
+            );
+          },
+          error: (erro) => {
+            alert(erro.error.message);
+          },
+        });
+      }
     } else {
       this.livroForm.markAllAsTouched();
       alert(

@@ -12,8 +12,13 @@
       <tr *ngFor="let livro of livros">
         <td>{{ livro.titulo }}</td>
         <td>
-          <button (click)="irParaAlteracaoDeLivro(livro)">Alterar</button>
-          <button (click)="abrirConfirmacaoDeExclusaoDeLivro(livro)">
+          <button class="btn btn-dark" (click)="irParaAlteracaoDeLivro(livro)">
+            Alterar
+          </button>
+          <button
+            class="btn btn-danger"
+            (click)="abrirConfirmacaoDeExclusaoDeLivro(livro)"
+          >
             Remover
           </button>
         </td>
@@ -43,7 +48,9 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">O livro {{tituloLivroParaExclusao}} foi excluido com sucesso!</div>
+      <div class="modal-body">
+        O livro {{ tituloLivroParaExclusao }} foi excluido com sucesso!
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">
           Fechar
