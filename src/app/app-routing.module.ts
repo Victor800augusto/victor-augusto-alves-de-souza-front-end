@@ -1,3 +1,4 @@
+import { FormularioAutorComponent } from './formulario-autor/formulario-autor.component';
 import { ListarAutoresComponent } from './listar-autores/listar-autores.component';
 import { FormularioLivroComponent } from './formulario-livro/formulario-livro.component';
 import { ListarLivrosComponent } from './listar-livros/listar-livros.component';
@@ -25,6 +26,14 @@ const routes: Routes = [
   {
     path: 'altera-livro/:livroId',
     component: FormularioLivroComponent,
+  },
+  {
+    path: 'cria-autor',
+    component: FormularioAutorComponent,
+  },
+  {
+    path: 'altera-autor/:autorId',
+    component: FormularioAutorComponent,
   },
 ];
 

@@ -1,1 +1,25 @@
-<p>listar-autores works!</p>
+<div class="container text-center">
+  <h3>Lista de autores</h3>
+  <button class="btn btn-dark" (click)="irParaCadastroDeAutor()">
+    Cadastrar autor
+  </button>
+  <div *ngIf="autores.length > 0">
+    <table>
+      <tr>
+        <th>Nome</th>
+        <th>Ações</th>
+      </tr>
+      <tr *ngFor="let autor of autores">
+        <td>{{ autor.nome }}</td>
+        <td>
+          <button class="btn btn-dark" (click)="irParaAlteracaoDeAutor(autor)">
+            Alterar
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div *ngIf="autores.length <= 0">Não tem autores</div>
+</div>
+
