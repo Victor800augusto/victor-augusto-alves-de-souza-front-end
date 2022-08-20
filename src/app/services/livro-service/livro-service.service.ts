@@ -16,8 +16,12 @@ export class LivroService {
     return this.http.get<Livro[]>(URL_API);
   }
 
-  getLivroById(id:number): Observable<Livro> {
-    return this.http.get<Livro>(URL_API)
+  getLivroById(id: number): Observable<Livro> {
+    return this.http.get<Livro>(URL_API);
+  }
+
+  cadastraLivro(livro: Livro) {
+    return this.http.post(URL_API, livro);
   }
 
   removeLivro(id: number): Observable<void> {

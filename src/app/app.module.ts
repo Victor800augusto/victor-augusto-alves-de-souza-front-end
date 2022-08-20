@@ -9,6 +9,8 @@ import { ListarAutoresComponent } from './listar-autores/listar-autores.componen
 import { FormularioLivroComponent } from './formulario-livro/formulario-livro.component';
 import { FormularioAutorComponent } from './formulario-autor/formulario-autor.component';
 import { MenuComponent } from './menu/menu/menu.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MensagemComponent } from './shared/components/mensagem/mensagem.component';
 
 @NgModule({
   declarations: [
@@ -17,12 +19,14 @@ import { MenuComponent } from './menu/menu/menu.component';
     ListarAutoresComponent,
     FormularioLivroComponent,
     FormularioAutorComponent,
-    MenuComponent
+    MenuComponent,
+    MensagemComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,78 @@
 <div class="container">
-  <h1 *ngIf="edicao">Cadastro de livro</h1>
-  <h1 *ngIf="!edicao">Alteração de livro</h1>
+  <h1 *ngIf="!edicao">Cadastro de livro</h1>
+  <h1 *ngIf="edicao">Alteração de livro</h1>
+  <form [formGroup]="livroForm" (submit)="SalvarLivro()">
+    <label class="fw-bold mt-3" for="titulo">Título: *</label>
+    <input
+      id="titulo"
+      type="text"
+      class="form-control"
+      placeholder="Título"
+      formControlName="titulo"
+    />
+    <app-mensagem
+      mensagem="* O título é obrigatório."
+      *ngIf="livroForm.get('titulo')?.errors?.['required'] && livroForm.get('titulo')?.touched"
+    ></app-mensagem>
+    <label class="fw-bold mt-3" for="anoLancamento">Ano de lançamento: *</label>
+    <input
+      id="anoLancamento"
+      type="text"
+      maxlength="4"
+      class="form-control"
+      placeholder="2022"
+      formControlName="anoLancamento"
+      (keypress)="apenasNumeros($event)"
+    />
+    <app-mensagem
+      mensagem="* O ano de lançamento é obrigatório."
+      *ngIf="livroForm.get('anoLancamento')?.errors?.['required'] && livroForm.get('anoLancamento')?.touched"
+    ></app-mensagem>
+    <label class="fw-bold mt-3" for="autoresIds">Ids dos autores: *</label>
+    <input
+      id="autoresIds"
+      type="text"
+      class="form-control"
+      placeholder="1,2,3,4,5"
+      formControlName="autoresIds"
+      (keypress)="keypressIdAutores($event)"
+    />
+    <app-mensagem
+      mensagem="* O livro deve ter ao menos um autor."
+      *ngIf="livroForm.get('autoresIds')?.errors?.['required'] && livroForm.get('autoresIds')?.touched"
+    ></app-mensagem>
+    <div class="row mt-5">
+      <button type="submit" class="col btn btn-success">Cadastrar</button>
+      <button class="col btn btn-dark" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="modalFormularioLivros"
+    tabindex="-1"
+    aria-labelledby="modalFormularioLivrosLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-success">
+          <h5 class="modal-title text-white">Livro cadastrado com sucesso!</h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">Teste</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
