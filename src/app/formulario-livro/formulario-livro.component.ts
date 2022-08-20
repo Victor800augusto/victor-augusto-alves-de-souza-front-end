@@ -93,7 +93,11 @@ export class FormularioLivroComponent implements OnInit {
           this.livroForm.get(['autoresIds'])?.setValue(stringIdAutores);
         },
         error: (error) => {
-          alert(error.error.message);
+          if(error.error.message){
+            alert(error.error.message);
+          }else{
+            alert('Houve um erro ao buscar livro, por favor tente novamente mais tarde!')
+          }
           this.route.navigate(['livros']);
         },
       });
@@ -129,8 +133,12 @@ export class FormularioLivroComponent implements OnInit {
               'livros'
             );
           },
-          error: (erro) => {
-            alert(erro.error.message);
+          error: (error) => {
+            if(error.error.message){
+              alert(error.error.message);
+            }else{
+              alert('Houve um erro ao cadastrar o livro, por favor tente novamente mais tarde!')
+            }
           },
         });
       } else {
@@ -145,8 +153,12 @@ export class FormularioLivroComponent implements OnInit {
                 'livros'
               );
             },
-            error: (erro) => {
-              alert(erro.error.message);
+            error: (error) => {
+              if(error.error.message){
+                alert(error.error.message);
+              }else{
+                alert('Houve um erro ao editar o livro, por favor tente novamente mais tarde!')
+              }
             },
           });
       }

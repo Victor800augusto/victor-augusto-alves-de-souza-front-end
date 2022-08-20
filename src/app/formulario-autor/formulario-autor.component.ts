@@ -68,7 +68,11 @@ export class FormularioAutorComponent implements OnInit {
             ?.setValue(this.autorParaEdicao.biografia);
         },
         error: (error) => {
-          alert(error.error.message);
+          if(error.error.message){
+            alert(error.error.message);
+          }else{
+            alert('Houve um erro ao buscar autor, por favor tente novamente mais tarde!')
+          }
           this.route.navigate(['autores']);
         },
       });
@@ -81,7 +85,6 @@ export class FormularioAutorComponent implements OnInit {
   SalvarAutor() {
     if (this.autorForm.valid) {
       let autor = this.autorForm.getRawValue() as Autor;
-
       if (!this.edicao) {
         this.autorService.cadastraAutor(autor).subscribe({
           next: () => {
@@ -92,8 +95,12 @@ export class FormularioAutorComponent implements OnInit {
               'autores'
             );
           },
-          error: (erro) => {
-            alert(erro.error.message);
+          error: (error) => {
+            if(error.error.message){
+              alert(error.error.message);
+            }else{
+              alert('Houve um erro ao cadastrar autor, por favor tente novamente mais tarde!')
+            }
           },
         });
       } else {
@@ -108,8 +115,12 @@ export class FormularioAutorComponent implements OnInit {
                 'autores'
               );
             },
-            error: (erro) => {
-              alert(erro.error.message);
+            error: (error) => {
+              if(error.error.message){
+                alert(error.error.message);
+              }else{
+                alert('Houve um erro ao editar autor, por favor tente novamente mais tarde!')
+              }
             },
           });
       }
