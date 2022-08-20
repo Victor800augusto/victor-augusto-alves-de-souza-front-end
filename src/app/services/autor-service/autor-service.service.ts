@@ -15,4 +15,16 @@ export class AutorService {
   getAll(): Observable<Autor[]> {
     return this.http.get<Autor[]>(URL_API);
   }
+
+  getAutorById(id: number): Observable<Autor> {
+    return this.http.get<Autor>(URL_API + '/' + id);
+  }
+
+  cadastraAutor(autor: Autor) {
+    return this.http.post(URL_API, autor);
+  }
+
+  atualizaAutor(id: number, autor: Autor) {
+    return this.http.put(URL_API + '/' + id, autor);
+  }
 }

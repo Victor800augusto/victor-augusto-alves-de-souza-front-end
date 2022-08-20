@@ -1,1 +1,69 @@
-<p>formulario-autor works!</p>
+<div class="container">
+  <h1 *ngIf="!edicao">Cadastro de autor</h1>
+  <h1 *ngIf="edicao && !loading">Alteração do autor {{autorParaEdicao.nome}}</h1>
+  <form [formGroup]="autorForm" (submit)="SalvarAutor()">
+    <label class="fw-bold mt-3" for="titulo">Nome: *</label>
+    <input
+      id="nome"
+      type="text"
+      class="form-control"
+      placeholder="Nome do autor"
+      formControlName="nome"
+      (blur)="limparESetarTexto($event)"
+    />
+    <app-mensagem
+      mensagem="* O nome é obrigatório."
+      *ngIf="autorForm.get('nome')?.errors?.['required'] && autorForm.get('nome')?.touched"
+    ></app-mensagem>
+    <label class="fw-bold mt-3" for="titulo">Biografia: *</label>
+    <textarea
+      id="biografia"
+      type="text"
+      class="form-control"
+      placeholder="Biografia do autor"
+      formControlName="biografia"
+      (blur)="limparESetarTexto($event)"
+      >
+    </textarea>
+    <app-mensagem
+      mensagem="* A biografia é obrigatória."
+      *ngIf="autorForm.get('biografia')?.errors?.['required'] && autorForm.get('biografia')?.touched"
+    ></app-mensagem>
+    <div class="row mt-5">
+      <button *ngIf="!edicao" type="submit" class="col btn btn-success">Cadastrar</button>
+      <button *ngIf="edicao" type="submit" class="col btn btn-success">Salvar alteração</button>
+      <button class="col btn btn-dark" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="modalFormularioAutores"
+    tabindex="-1"
+    aria-labelledby="modalFormularioAutoresLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-success">
+          <h5 *ngIf="!edicao" class="modal-title text-white">Autor cadastrado com sucesso!</h5>
+          <h5 *ngIf="edicao" class="modal-title text-white">Autor alterado com sucesso!</h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div *ngIf="!edicao" class="modal-body">O autor foi cadastrado com sucesso!</div>
+        <div *ngIf="edicao" class="modal-body">O autor foi alterado com sucesso!</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
