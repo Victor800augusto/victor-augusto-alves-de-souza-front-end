@@ -8,6 +8,7 @@ import {
   keypressApenasNumeros,
   keypressIdsAutores,
 } from '../shared/directives/keypress/keypress';
+import { blurLimpaNomes, blurLimparIdsAutores } from '../shared/directives/keypress/blur';
 
 declare function abreModal(id: string): any;
 declare function adicionaEventoSairNaModalComDestino(
@@ -24,6 +25,8 @@ declare function adicionaEventoSairNaModalComDestino(
 export class FormularioLivroComponent implements OnInit {
   apenasNumeros: Function = keypressApenasNumeros;
   keypressIdAutores: Function = keypressIdsAutores;
+  blurLimparNome: Function = blurLimpaNomes;
+  blurLimparIdAutores: Function = blurLimparIdsAutores;
 
   edicao: Boolean;
 
@@ -52,6 +55,18 @@ export class FormularioLivroComponent implements OnInit {
       anoLancamento: ['', [Validators.required]],
       autoresIds: ['', [Validators.required]],
     });
+  }
+
+  limparESetarNome(event: any) {
+    this.livroForm
+      .get(event.target.id)
+      ?.setValue(this.blurLimparNome(event));
+  }
+
+  limparESetarIdAutores(event: any) {
+    this.livroForm
+      .get(event.target.id)
+      ?.setValue(this.blurLimparIdAutores(event));
   }
 
   SalvarLivro() {

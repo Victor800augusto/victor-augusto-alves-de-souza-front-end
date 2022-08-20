@@ -9,6 +9,7 @@
       class="form-control"
       placeholder="Título"
       formControlName="titulo"
+      (blur)="limparESetarNome($event)"
     />
     <app-mensagem
       mensagem="* O título é obrigatório."
@@ -36,6 +37,7 @@
       placeholder="1,2,3,4,5"
       formControlName="autoresIds"
       (keypress)="keypressIdAutores($event)"
+      (blur)="limparESetarIdAutores($event)"
     />
     <app-mensagem
       mensagem="* O livro deve ter ao menos um autor."
