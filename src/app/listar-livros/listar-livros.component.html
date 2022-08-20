@@ -1,21 +1,93 @@
 <div class="container text-center">
   <h3>Lista de livros</h3>
-  <button class="btn btn-dark" (click)="irParaCadastroDeLivro()">Cadastrar livro</button>
+  <button class="btn btn-dark" (click)="irParaCadastroDeLivro()">
+    Cadastrar livro
+  </button>
   <div *ngIf="livros.length > 0">
     <table>
       <tr>
         <th>Nome</th>
         <th>Ações</th>
       </tr>
-      <tr  *ngFor="let livro of livros">
+      <tr *ngFor="let livro of livros">
         <td>{{ livro.titulo }}</td>
         <td>
           <button (click)="irParaAlteracaoDeLivro(livro)">Alterar</button>
-          <button (click)="RemoverLivro(livro)">Remover</button>
+          <button (click)="abrirConfirmacaoDeExclusaoDeLivro(livro)">
+            Remover
+          </button>
         </td>
       </tr>
     </table>
   </div>
 
   <div *ngIf="livros.length <= 0">Não tem livro</div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="modalLivros"
+  tabindex="-1"
+  aria-labelledby="modalLivrosLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-success">
+        <h5 class="modal-title text-white">Livro excluido com sucesso!</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">O livro {{tituloLivroParaExclusao}} foi excluido com sucesso!</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Confirmação de exclusão -->
+<div
+  class="modal fade"
+  id="modalConfirmacaoExclusao"
+  tabindex="-1"
+  aria-labelledby="modalConfirmacaoExclusaoLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-warning">
+        <h5 class="modal-title">Exclusão de livro!</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        Deseja realmente excluir o livro {{ tituloLivroParaExclusao }} ?
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-warning"
+          (click)="removerLivro()"
+          data-bs-dismiss="modal"
+        >
+          <b>Excluir</b>
+        </button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

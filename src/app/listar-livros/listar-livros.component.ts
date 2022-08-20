@@ -1,7 +1,9 @@
+import { Livro } from './../models/livro';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Livro } from '../models/livro';
 import { LivroService } from '../services/livro-service/livro-service.service';
+
+declare function abreModal(id: string): any;
 
 @Component({
   selector: 'listar-livros',
@@ -10,6 +12,9 @@ import { LivroService } from '../services/livro-service/livro-service.service';
 })
 export class ListarLivrosComponent implements OnInit {
   livros: Livro[] = [];
+
+  idLivroParaExclusao!: number;
+  tituloLivroParaExclusao!: string;
 
   constructor(private livroService: LivroService, private route: Router) {}
 
@@ -36,15 +41,20 @@ export class ListarLivrosComponent implements OnInit {
     this.route.navigate(['altera-livro', livro.id]);
   }
 
-  RemoverLivro(livro: Livro) {
-    console.log(livro.id);
-    this.livroService.removeLivro(livro.id).subscribe({
+  abrirConfirmacaoDeExclusaoDeLivro(livro: Livro) {
+    this.idLivroParaExclusao = livro.id;
+    this.tituloLivroParaExclusao = livro.titulo;
+    abreModal('modalConfirmacaoExclusao');
+  }
+
+  removerLivro() {
+    this.livroService.removeLivro(this.idLivroParaExclusao).subscribe({
       next: (success) => {
-        console.log('livro ' + livro.titulo + 'excluido com sucesso');
-        this.listarLivros()
+        abreModal('modalLivros');
+        this.listarLivros();
       },
       error: (error) => {
-        console.log(error);
+        alert(error.error.message);
       },
     });
   }
