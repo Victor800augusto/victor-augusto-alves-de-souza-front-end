@@ -13,7 +13,7 @@
         <td>{{ livro.titulo }}</td>
         <td>
           <button class="btn btn-dark me-3" (click)="irParaAlteracaoDeLivro(livro)">
-            Alterar
+            Editar
           </button>
           <button
             class="btn btn-danger"
@@ -26,7 +26,7 @@
     </table>
   </div>
 
-  <h1 class="mt-5 text-danger" *ngIf="livros.length <= 0">Não há livros cadastrados</h1>
+  <h1 class="mt-5 text-danger" *ngIf="livros.length <= 0 && !loading">Não há livros cadastrados</h1>
 </div>
 
 <!-- Modal -->

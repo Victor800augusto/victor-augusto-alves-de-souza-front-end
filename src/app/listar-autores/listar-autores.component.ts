@@ -12,12 +12,14 @@ import { Title } from '@angular/platform-browser';
 export class ListarAutoresComponent implements OnInit {
   autores: Autor[] = [];
 
+  loading: Boolean = true;
+
   constructor(
     private autorService: AutorService,
     private route: Router,
     private titleService: Title
   ) {
-    titleService.setTitle('Lista de Autores')
+    titleService.setTitle('Lista de Autores');
   }
 
   ngOnInit(): void {
@@ -27,13 +29,16 @@ export class ListarAutoresComponent implements OnInit {
   listarAutores() {
     this.autorService.getAll().subscribe({
       next: (success) => {
+        this.loading = false;
         this.autores = success;
       },
       error: (error) => {
-        if(error.error.message){
+        if (error.error.message) {
           alert(error.error.message);
-        }else{
-          alert('Houve um erro ao buscar autores, por favor tente novamente mais tarde!')
+        } else {
+          alert(
+            'Houve um erro ao buscar autores, por favor tente novamente mais tarde!'
+          );
         }
       },
     });

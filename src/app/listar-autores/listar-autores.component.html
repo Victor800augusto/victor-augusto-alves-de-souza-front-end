@@ -13,12 +13,12 @@
         <td>{{ autor.nome }}</td>
         <td>
           <button class="btn btn-dark" (click)="irParaAlteracaoDeAutor(autor)">
-            Alterar
+            Editar
           </button>
         </td>
       </tr>
     </table>
   </div>
 
-  <h1 class="mt-5 text-danger" *ngIf="autores.length <= 0">Não há autores cadastrados</h1>
+  <h1 class="mt-5 text-danger" *ngIf="autores.length <= 0 && !loading">Não há autores cadastrados</h1>
 </div>

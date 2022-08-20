@@ -14,6 +14,8 @@ declare function abreModal(id: string): any;
 export class ListarLivrosComponent implements OnInit {
   livros: Livro[] = [];
 
+  loading: Boolean = true;
+
   idLivroParaExclusao!: number;
   tituloLivroParaExclusao!: string;
 
@@ -22,7 +24,7 @@ export class ListarLivrosComponent implements OnInit {
     private route: Router,
     private titleService: Title
   ) {
-    titleService.setTitle('Lista de Livros')
+    titleService.setTitle('Lista de Livros');
   }
 
   ngOnInit(): void {
@@ -32,13 +34,16 @@ export class ListarLivrosComponent implements OnInit {
   listarLivros() {
     this.livroService.getAll().subscribe({
       next: (success) => {
+        this.loading = false;
         this.livros = success;
       },
       error: (error) => {
-        if(error.error.message){
+        if (error.error.message) {
           alert(error.error.message);
-        }else{
-          alert('Houve um erro ao buscar livros, por favor tente novamente mais tarde!')
+        } else {
+          alert(
+            'Houve um erro ao buscar livros, por favor tente novamente mais tarde!'
+          );
         }
       },
     });
