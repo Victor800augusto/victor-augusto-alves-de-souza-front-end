@@ -35,7 +35,7 @@ export class FormularioAutorComponent implements OnInit {
     private autorService: AutorService,
     private titleService: Title
   ) {
-    if (window.location.href.includes('cria-autor')) {
+    if (window.location.href.includes('cadastra-autor')) {
       this.titleService.setTitle('Cadastro de autor');
       this.edicao = false;
     } else {

@@ -20,7 +20,7 @@ const routes: Routes = [
     component: ListarAutoresComponent,
   },
   {
-    path: 'cria-livro',
+    path: 'cadastra-livro',
     component: FormularioLivroComponent,
   },
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
     component: FormularioLivroComponent,
   },
   {
-    path: 'cria-autor',
+    path: 'cadastra-autor',
     component: FormularioAutorComponent,
   },
   {

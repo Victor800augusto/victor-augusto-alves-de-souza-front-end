@@ -47,7 +47,7 @@ export class FormularioLivroComponent implements OnInit {
     private formBuilder: FormBuilder,
     private titleService: Title
   ) {
-    if (window.location.href.includes('cria-livro')) {
+    if (window.location.href.includes('cadastra-livro')) {
       this.titleService.setTitle('Cadastro de livro');
       this.edicao = false;
     } else {

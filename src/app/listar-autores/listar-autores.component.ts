@@ -45,7 +45,7 @@ export class ListarAutoresComponent implements OnInit {
   }
 
   irParaCadastroDeAutor() {
-    this.route.navigate(['cria-autor']);
+    this.route.navigate(['cadastra-autor']);
   }
 
   irParaAlteracaoDeAutor(autor: Autor) {

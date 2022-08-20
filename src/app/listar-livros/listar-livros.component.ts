@@ -50,7 +50,7 @@ export class ListarLivrosComponent implements OnInit {
   }
 
   irParaCadastroDeLivro() {
-    this.route.navigate(['cria-livro']);
+    this.route.navigate(['cadastra-livro']);
   }
 
   irParaAlteracaoDeLivro(livro: Livro) {
