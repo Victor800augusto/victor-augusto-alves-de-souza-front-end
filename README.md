@@ -2,7 +2,9 @@
 
 # Pré Requisitos
 REST API da biblioteca, https://github.com/aceleragep/biblioteca.git
+
 Angular CLI: 14.1.2 ou maior.
+
 Node: 16.14.0 ou maior.
 
 # Execução do projeto
