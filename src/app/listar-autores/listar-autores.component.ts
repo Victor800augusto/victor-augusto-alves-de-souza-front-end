@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { Autor } from './../models/autor';
 import { AutorService } from './../services/autor-service/autor-service.service';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'listar-autores',
@@ -11,7 +12,13 @@ import { Component, OnInit } from '@angular/core';
 export class ListarAutoresComponent implements OnInit {
   autores: Autor[] = [];
 
-  constructor(private autorService: AutorService, private route: Router) {}
+  constructor(
+    private autorService: AutorService,
+    private route: Router,
+    private titleService: Title
+  ) {
+    titleService.setTitle('Lista de Autores')
+  }
 
   ngOnInit(): void {
     this.listarAutores();

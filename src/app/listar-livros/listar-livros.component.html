@@ -4,7 +4,7 @@
     Cadastrar livro
   </button>
   <div *ngIf="livros.length > 0">
-    <table>
+    <table class="tabela mx-auto mt-5">
       <tr>
         <th>Nome</th>
         <th>Ações</th>
@@ -12,7 +12,7 @@
       <tr *ngFor="let livro of livros">
         <td>{{ livro.titulo }}</td>
         <td>
-          <button class="btn btn-dark" (click)="irParaAlteracaoDeLivro(livro)">
+          <button class="btn btn-dark me-3" (click)="irParaAlteracaoDeLivro(livro)">
             Alterar
           </button>
           <button

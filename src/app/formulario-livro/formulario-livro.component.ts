@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -43,11 +44,14 @@ export class FormularioLivroComponent implements OnInit {
     private route: Router,
     private livroService: LivroService,
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private titleService: Title
   ) {
     if (window.location.href.includes('cria-livro')) {
+      this.titleService.setTitle('Cadastro de livro');
       this.edicao = false;
     } else {
+      this.titleService.setTitle('Edição de livro');
       this.edicao = true;
     }
   }

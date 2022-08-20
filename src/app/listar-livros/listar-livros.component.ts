@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Livro } from './../models/livro';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -16,7 +17,13 @@ export class ListarLivrosComponent implements OnInit {
   idLivroParaExclusao!: number;
   tituloLivroParaExclusao!: string;
 
-  constructor(private livroService: LivroService, private route: Router) {}
+  constructor(
+    private livroService: LivroService,
+    private route: Router,
+    private titleService: Title
+  ) {
+    titleService.setTitle('Lista de Livros')
+  }
 
   ngOnInit(): void {
     this.listarLivros();

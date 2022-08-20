@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { AutorService } from './../services/autor-service/autor-service.service';
 import { Autor } from './../models/autor';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,11 +32,14 @@ export class FormularioAutorComponent implements OnInit {
     private route: Router,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private autorService: AutorService
+    private autorService: AutorService,
+    private titleService: Title
   ) {
     if (window.location.href.includes('cria-autor')) {
+      this.titleService.setTitle('Cadastro de autor');
       this.edicao = false;
     } else {
+      this.titleService.setTitle('Edição de autor');
       this.edicao = true;
     }
   }
