@@ -54,8 +54,11 @@ export class FormularioLivroComponent implements OnInit {
 
   ngOnInit(): void {
     this.livroForm = this.formBuilder.group({
-      titulo: ['', [Validators.required]],
-      anoLancamento: ['', [Validators.required, Validators.minLength(4)]],
+      titulo: ['', [Validators.required, Validators.maxLength(200)]],
+      anoLancamento: [
+        '',
+        [Validators.required, Validators.minLength(4), Validators.maxLength(4)],
+      ],
       autoresIds: ['', [Validators.required]],
     });
 
@@ -127,19 +130,21 @@ export class FormularioLivroComponent implements OnInit {
           },
         });
       } else {
-        this.livroService.atualizaLivro(this.livroParaEdicao.id, livro).subscribe({
-          next: () => {
-            abreModal('modalFormularioLivros');
-            adicionaEventoSairNaModalComDestino(
-              'modalFormularioLivros',
-              this.route,
-              'livros'
-            );
-          },
-          error: (erro) => {
-            alert(erro.error.message);
-          },
-        });
+        this.livroService
+          .atualizaLivro(this.livroParaEdicao.id, livro)
+          .subscribe({
+            next: () => {
+              abreModal('modalFormularioLivros');
+              adicionaEventoSairNaModalComDestino(
+                'modalFormularioLivros',
+                this.route,
+                'livros'
+              );
+            },
+            error: (erro) => {
+              alert(erro.error.message);
+            },
+          });
       }
     } else {
       this.livroForm.markAllAsTouched();
