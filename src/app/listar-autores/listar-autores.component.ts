@@ -30,7 +30,11 @@ export class ListarAutoresComponent implements OnInit {
         this.autores = success;
       },
       error: (error) => {
-        console.log('deu erro');
+        if(error.error.message){
+          alert(error.error.message);
+        }else{
+          alert('Houve um erro ao buscar autores, por favor tente novamente mais tarde!')
+        }
       },
     });
   }

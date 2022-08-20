@@ -35,7 +35,11 @@ export class ListarLivrosComponent implements OnInit {
         this.livros = success;
       },
       error: (error) => {
-        console.log('deu erro');
+        if(error.error.message){
+          alert(error.error.message);
+        }else{
+          alert('Houve um erro ao buscar livros, por favor tente novamente mais tarde!')
+        }
       },
     });
   }
