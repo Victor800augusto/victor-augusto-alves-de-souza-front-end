@@ -8,7 +8,11 @@ import {
   keypressApenasNumeros,
   keypressIdsAutores,
 } from '../shared/directives/keypress/keypress';
-import { blurLimpaNomes, blurLimparIdsAutores } from '../shared/directives/keypress/blur';
+import {
+  blurLimpaNomes,
+  blurLimparIdsAutores,
+  blurLimparZeroAEsquerda,
+} from '../shared/directives/keypress/blur';
 
 declare function abreModal(id: string): any;
 declare function adicionaEventoSairNaModalComDestino(
@@ -27,6 +31,7 @@ export class FormularioLivroComponent implements OnInit {
   keypressIdAutores: Function = keypressIdsAutores;
   blurLimparNome: Function = blurLimpaNomes;
   blurLimparIdAutores: Function = blurLimparIdsAutores;
+  blurLimparZeroAEsquerda: Function = blurLimparZeroAEsquerda;
 
   edicao: Boolean;
 
@@ -52,21 +57,25 @@ export class FormularioLivroComponent implements OnInit {
   ngOnInit(): void {
     this.livroForm = this.formBuilder.group({
       titulo: ['', [Validators.required]],
-      anoLancamento: ['', [Validators.required]],
+      anoLancamento: ['', [Validators.required, Validators.minLength(4)]],
       autoresIds: ['', [Validators.required]],
     });
   }
 
   limparESetarNome(event: any) {
-    this.livroForm
-      .get(event.target.id)
-      ?.setValue(this.blurLimparNome(event));
+    this.livroForm.get(event.target.id)?.setValue(this.blurLimparNome(event));
   }
 
   limparESetarIdAutores(event: any) {
     this.livroForm
       .get(event.target.id)
       ?.setValue(this.blurLimparIdAutores(event));
+  }
+
+  limparESetarZeroAEsquerda(event: any) {
+    this.livroForm
+      .get(event.target.id)
+      ?.setValue(this.blurLimparZeroAEsquerda(event));
   }
 
   SalvarLivro() {
@@ -89,7 +98,9 @@ export class FormularioLivroComponent implements OnInit {
       });
     } else {
       this.livroForm.markAllAsTouched();
-      alert('Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.')
+      alert(
+        'Um ou mais campos estão inválidos. Faça o preenchimento correto e tente novamente.'
+      );
     }
   }
 

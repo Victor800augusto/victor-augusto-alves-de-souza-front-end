@@ -39,3 +39,13 @@ export function blurLimparIdsAutores(evento: any) {
   return palavra;
 }
 
+export function blurLimparZeroAEsquerda(evento: any) {
+  let palavra = evento.target.value.toString();
+  palavra = palavra.replace(/^0+/, '');
+
+  if (palavra) {
+    return palavra;
+  } else {
+    return '';
+  }
+}

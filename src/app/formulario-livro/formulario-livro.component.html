@@ -24,10 +24,15 @@
       placeholder="2022"
       formControlName="anoLancamento"
       (keypress)="apenasNumeros($event)"
+      (blur)="limparESetarZeroAEsquerda($event)"
     />
     <app-mensagem
       mensagem="* O ano de lançamento é obrigatório."
       *ngIf="livroForm.get('anoLancamento')?.errors?.['required'] && livroForm.get('anoLancamento')?.touched"
+    ></app-mensagem>
+    <app-mensagem
+      mensagem="* O ano de lançamento deve ter 4 dígitos e não pode começar com 0."
+      *ngIf="livroForm.get('anoLancamento')?.errors?.['minlength'] && !livroForm.get('anoLancamento')?.errors?.['required'] && livroForm.get('anoLancamento')?.touched"
     ></app-mensagem>
     <label class="fw-bold mt-3" for="autoresIds">Ids dos autores: *</label>
     <input
