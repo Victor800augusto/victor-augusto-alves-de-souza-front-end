@@ -9,12 +9,18 @@
       class="form-control"
       placeholder="Nome do autor"
       formControlName="nome"
+      maxlength="100"
       (blur)="limparESetarTexto($event)"
     />
     <app-mensagem
       mensagem="* O nome é obrigatório."
       *ngIf="autorForm.get('nome')?.errors?.['required'] && autorForm.get('nome')?.touched"
     ></app-mensagem>
+    <app-mensagem
+      mensagem="* O nome deve ter no máximo 100 caracteres."
+      *ngIf="autorForm.get('nome')?.errors?.['maxlength'] && !autorForm.get('nome')?.errors?.['required'] && autorForm.get('nome')?.touched"
+    ></app-mensagem>
+
     <label class="fw-bold mt-3" for="titulo">Biografia: *</label>
     <textarea
       id="biografia"
@@ -22,6 +28,7 @@
       class="form-control"
       placeholder="Biografia do autor"
       formControlName="biografia"
+      maxlength="1000"
       (blur)="limparESetarTexto($event)"
       >
     </textarea>
@@ -29,6 +36,10 @@
       mensagem="* A biografia é obrigatória."
       *ngIf="autorForm.get('biografia')?.errors?.['required'] && autorForm.get('biografia')?.touched"
     ></app-mensagem>
+    <app-mensagem
+    mensagem="* A biografia deve ter no máximo 1000 caracteres."
+    *ngIf="autorForm.get('biografia')?.errors?.['maxlength'] && !autorForm.get('biografia')?.errors?.['required'] && autorForm.get('biografia')?.touched"
+  ></app-mensagem>
     <div class="row mt-5">
       <button *ngIf="!edicao" type="submit" class="col btn btn-success">Cadastrar</button>
       <button *ngIf="edicao" type="submit" class="col btn btn-success">Salvar alteração</button>

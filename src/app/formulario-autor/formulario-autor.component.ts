@@ -42,8 +42,8 @@ export class FormularioAutorComponent implements OnInit {
 
   ngOnInit(): void {
     this.autorForm = this.formBuilder.group({
-      nome: ['', [Validators.required]],
-      biografia: ['', [Validators.required]],
+      nome: ['', [Validators.required, Validators.maxLength(100)]],
+      biografia: ['', [Validators.required, Validators.maxLength(1000)]],
     });
 
     if (this.edicao) {
