@@ -13,6 +13,8 @@ REST API da biblioteca deve estar em execução
 
 1 - git clone https://github.com/Victor800augusto/victor-augusto-alves-de-souza-front-end.git
 
-2 - npm install
+2 - cd victor-augusto-alves-de-souza-front-end
 
-3 - ng serve
+3 - npm install
+
+4 - ng serve
